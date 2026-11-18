@@ -3,8 +3,8 @@
 @section('title', 'CATEGORIAS')
 @section('name-section', 'CATEGORIAS')
 
-@section('description', 'Editar categoría')
-@section('item-breadcrumb', 'Editar')
+@section('description', 'Actualizar registro de categoría')
+@section('item-breadcrumb', 'Actualizar')
 @section('section-breadcrumb', 'Categorías')
 @section('module-breadcrumb', 'Configuraciones')
 
