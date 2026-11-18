@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('settings.categories.index');
+        $categories = Category::all();
+        return view('settings.categories.index', compact('categories'));
     }
 
     /**
@@ -28,7 +29,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:50|unique:categories',
+            'description' => 'nullable|max:255',
+        ]);
+
+        Category::create($validated);
+
+        return to_route('categories.index')->with('ok', 'Categoría registrada correctamente.');
     }
 
     /**
@@ -36,7 +44,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('settings.categories.edit', compact('category'));
     }
 
     /**
@@ -44,7 +52,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:50|unique:categories,name,' . $category->id,
+            'description' => 'nullable|max:255',
+        ]);
+
+        $category->update($validated);
+
+        return to_route('categories.index')->with('ok', 'Categoría actualizada correctamente.');
     }
 
     /**
@@ -52,6 +67,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->medicines()->exists()) {
+            return to_route('categories.index')->with('error', 'No se puede eliminar: la categoría tiene medicamentos asociados.');
+        }
+
+        $category->delete();
+
+        return to_route('categories.index')->with('ok', 'Categoría eliminada correctamente.');
     }
 }
