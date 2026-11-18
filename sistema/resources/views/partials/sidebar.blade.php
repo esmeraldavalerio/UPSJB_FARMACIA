@@ -55,7 +55,10 @@
       <p class="sidebar-section-title text-white-50 text-uppercase fw-semibold px-3 mb-2 mt-3">Configuraciones</p>
       <ul class="nav flex-column gap-1">
         <li class="nav-item">
-          <a href="" class="nav-link sidebar-link text-white-50 rounded-4 px-3 py-2 d-flex align-items-center gap-2" aria-current="">
+          <a href="{{ route('roles.index') }}"
+             @class(['nav-link sidebar-link text-white-50 rounded-4',
+                     'px-3 py-2 d-flex align-items-center gap-2',
+                     'active_item' => request()->routeIs('roles.*')])>
             <i class="bi bi-shield fs-6"></i><span class="small fw-medium">Roles</span>
           </a>
         </li>
