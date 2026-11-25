@@ -27,7 +27,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link sidebar-link text-white-50 rounded-4 px-3 py-2 d-flex align-items-center gap-2">
+          <a href="{{ route('reports.index') }}"
+             @class(['nav-link sidebar-link text-white-50 rounded-4',
+                     'px-3 py-2 d-flex align-items-center gap-2',
+                     'active_item' => request()->is(['reports*'])])
+             aria-current="{{ request()->is(['reports*']) ? 'page' : null }}">
             <i class="bi bi-bar-chart fs-6"></i><span class="small fw-medium">Reportes</span>
           </a>
         </li>
