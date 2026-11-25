@@ -1,6 +1,6 @@
 <div class="mb-3">
     <label for="name" class="form-label">Nombre del rol</label>
-    <input type="text" name="name" id="name"
+    <input type="text" name="name" id="name" maxlength="50"
         class="form-control @error('name') is-invalid @enderror"
         value="{{ old('name', $role->name ?? '') }}">
     @error('name')
@@ -10,7 +10,7 @@
 
 <div class="mb-3">
     <label for="description" class="form-label">Descripción</label>
-    <textarea name="description" id="description" rows="3"
+    <textarea name="description" id="description" rows="3" maxlength="255"
         class="form-control @error('description') is-invalid @enderror">{{ old('description', $role->description ?? '') }}</textarea>
     @error('description')
         <div class="invalid-feedback">{{ $message }}</div>

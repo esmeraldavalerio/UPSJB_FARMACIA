@@ -14,11 +14,9 @@
 
 <div id="app-wrapper" class="d-flex">
 
-  <!-- sidebar -->
   @include('partials.sidebar')
 
   <div class="main-wrapper d-flex flex-column flex-grow-1 overflow-hidden">
-    <!-- header -->
     @include('partials.header')
 
     <main class="app-content flex-grow-1 overflow-y-auto p-3 p-lg-4">
@@ -29,31 +27,23 @@
 
           <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="Ruta de navegación">
             <ol class="breadcrumb mb-0 small">
+              @hasSection('module')
               <li class="breadcrumb-item">
-                <span>@yield('item-breadcrumb', 'Inicio')</span>
-              </li>
-              @hasSection('section-breadcrumb')
-              <li class="breadcrumb-item text-muted fw-medium" aria-current="page">
-                <span class="text-secondary">@yield('section-breadcrumb')</span>
+                <span class="text-secondary">@yield('module')</span>
               </li>
               @endif
-              @hasSection('module-breadcrumb')
+              @hasSection('section')
               <li class="breadcrumb-item">
-                <span class="text-secondary">@yield('module-breadcrumb')</span>
+                <a href="@yield('route_section', '#')" class="text-decoration-none">@yield('section')</a>
               </li>
               @endif
+              <li class="breadcrumb-item active text-muted fw-medium" aria-current="page">
+                <span>@yield('item_section', 'Inicio')</span>
+              </li>
             </ol>
           </nav>
         </div>
 
-        @include('partials.alertas')
-
-        <!--
-            CONTENIDO DE LA VISTA
-            Aquí va el contenido específico de cada página
-            (KPIs, gráficos, tablas, formularios, etc.)
-            En Laravel:
-        -->
         @yield('content')
 
       </div>
@@ -62,7 +52,6 @@
   </div>
 </div>
 
-<!-- MODAL — Confirmar Cierre de Sesión -->
 @include('partials.modal-logout')
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

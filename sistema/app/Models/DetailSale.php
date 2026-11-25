@@ -24,7 +24,6 @@ class DetailSale extends Model
         return $this->belongsTo(Medicine::class);
     }
 
-    // Diagrama: +calcularSubtotal() y +validarStock()
     public function calculateSubtotal(): float
     {
         return round($this->amount * $this->price_unit, 2);

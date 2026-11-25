@@ -31,7 +31,6 @@ class Sale extends Model
         return $this->hasMany(DetailSale::class);
     }
 
-    // Diagrama: +calcularTotal(). Los precios ya incluyen el IGV (18 %).
     public function calculateTotal(): float
     {
         $this->total = round($this->details()->sum('subtotal'), 2);
