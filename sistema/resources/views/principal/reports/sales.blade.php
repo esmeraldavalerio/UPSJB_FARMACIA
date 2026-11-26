@@ -152,26 +152,42 @@
             <table class="table table-hover w-100 bg-white mb-0">
                 <thead>
                     <tr>
+                        <th class="align-middle">N.°</th>
                         <th class="align-middle">Fecha</th>
                         <th class="align-middle">Cliente</th>
                         <th class="align-middle">Vendedor</th>
+                        <th class="align-middle text-end">IGV</th>
                         <th class="align-middle text-end">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($sales as $sale)
                         <tr>
+                            {{-- El número de venta abre su detalle --}}
+                            <td class="align-middle">
+                                <a href="{{ route('sales.show', $sale) }}">{{ str_pad($sale->id, 6, '0', STR_PAD_LEFT) }}</a>
+                            </td>
                             <td class="align-middle text-nowrap">{{ $sale->date->format('d/m/Y H:i') }}</td>
                             <td class="align-middle">{{ $sale->customer->name }}</td>
                             <td class="align-middle">{{ $sale->user->name }}</td>
+                            <td class="align-middle text-end text-nowrap">S/ {{ number_format($sale->igv, 2) }}</td>
                             <td class="align-middle text-end text-nowrap">S/ {{ number_format($sale->total, 2) }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted py-3">No hay ventas con los filtros seleccionados</td>
+                            <td colspan="6" class="text-center text-muted py-3">No hay ventas con los filtros seleccionados</td>
                         </tr>
                     @endforelse
                 </tbody>
+                @if ($sales->isNotEmpty())
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-end">Totales</th>
+                            <th class="text-end text-nowrap">S/ {{ number_format($totalIgv, 2) }}</th>
+                            <th class="text-end text-nowrap">S/ {{ number_format($totalAmount, 2) }}</th>
+                        </tr>
+                    </tfoot>
+                @endif
             </table>
         </div>
     </div>
