@@ -2,7 +2,7 @@
 
 @section('title', 'Reporte de ventas')
 @section('name_section', 'Reporte de ventas')
-@section('description', 'Consulta las ventas por periodo, vendedor y categoría')
+@section('description', 'Consulta las ventas por periodo, cliente, vendedor y categoría')
 @section('item_section', 'Reportes')
 @section('route_section', route('reports.sales'))
 @section('section', 'Ventas')
@@ -35,7 +35,16 @@
                 <label for="to" class="form-label small mb-1">Hasta</label>
                 <input type="date" name="to" id="to" class="form-control" value="{{ $to->format('Y-m-d') }}">
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xl-2">
+                <label for="customer_id" class="form-label small mb-1">Cliente</label>
+                <select name="customer_id" id="customer_id" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach ($customers as $customer)
+                        <option value="{{ $customer->id }}" @selected(request('customer_id') == $customer->id)>{{ $customer->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-12 col-md-6 col-xl-2">
                 <label for="user_id" class="form-label small mb-1">Vendedor</label>
                 <select name="user_id" id="user_id" class="form-select">
                     <option value="">Todos</option>
@@ -44,7 +53,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-12 col-md-6 col-xl-3">
+            <div class="col-12 col-md-6 col-xl-2">
                 <label for="category_id" class="form-label small mb-1">Categoría</label>
                 <select name="category_id" id="category_id" class="form-select">
                     <option value="">Todas</option>
@@ -67,7 +76,7 @@
 
 {{-- Tarjetas de resumen --}}
 <div class="row g-3 mb-3">
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-6 col-xl-3">
         <div class="card bg-white border-0 shadow-sm border-5 border-top border-secondary h-100">
             <div class="card-body d-flex align-items-start justify-content-between gap-3">
                 <div>
@@ -78,7 +87,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-6 col-xl-3">
         <div class="card bg-white border-0 shadow-sm border-5 border-top border-secondary h-100">
             <div class="card-body d-flex align-items-start justify-content-between gap-3">
                 <div>
@@ -89,7 +98,18 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="card bg-white border-0 shadow-sm border-5 border-top border-secondary h-100">
+            <div class="card-body d-flex align-items-start justify-content-between gap-3">
+                <div>
+                    <div class="text-secondary small">IGV</div>
+                    <div class="fs-4 fw-bold">S/ {{ number_format($totalIgv, 2) }}</div>
+                </div>
+                <i class="bi bi-percent fs-3 text-secondary"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3">
         <div class="card bg-white border-0 shadow-sm border-5 border-top border-secondary h-100">
             <div class="card-body d-flex align-items-start justify-content-between gap-3">
                 <div>
@@ -115,7 +135,19 @@
 {{-- Detalle de ventas --}}
 <div class="card bg-white border-0 shadow-sm border-5 border-top border-secondary">
     <div class="card-body">
-        <h6 class="fw-semibold mb-3">Detalle de ventas</h6>
+        {{-- Las descargas usan los mismos filtros que se están viendo en pantalla --}}
+        @php($filters = request()->only(['from', 'to', 'customer_id', 'user_id', 'category_id']))
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h6 class="fw-semibold mb-0">Detalle de ventas</h6>
+            <div class="d-flex gap-2">
+                <a href="{{ route('reports.sales.pdf', $filters) }}" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>Descargar PDF
+                </a>
+                <a href="{{ route('reports.sales.excel', $filters) }}" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-file-earmark-excel me-1"></i>Descargar Excel
+                </a>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-hover w-100 bg-white mb-0">
                 <thead>

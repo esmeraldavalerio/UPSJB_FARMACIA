@@ -7,6 +7,8 @@
   <title>FARM SJB | Iniciar sesión</title>
   <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+  {{-- PWA: manifest, íconos y registro del service worker --}}
+  @laravelPWA
 </head>
 
 <body>

@@ -12,7 +12,10 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        // Sin iniciar sesión, el inicio redirige al login
+        $this->get('/')->assertRedirect(route('login'));
+
+        $response = $this->get('/login');
 
         $response->assertStatus(200);
     }

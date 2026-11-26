@@ -5,6 +5,8 @@ return [
     'array' => 'El campo :attribute debe ser una lista.',
     'boolean' => 'El campo :attribute debe ser verdadero o falso.',
     'confirmed' => 'La confirmación de :attribute no coincide.',
+    'date' => 'El campo :attribute debe ser una fecha válida.',
+    'after_or_equal' => 'El campo :attribute debe ser una fecha igual o posterior a :date.',
     'digits' => 'El campo :attribute debe tener :digits dígitos.',
     'distinct' => 'El campo :attribute tiene un valor repetido.',
     'email' => 'El campo :attribute debe ser un correo válido.',
@@ -49,6 +51,8 @@ return [
         'items' => 'medicamentos',
         'items.*.medicine_id' => 'medicamento',
         'items.*.amount' => 'cantidad',
+        'from' => 'fecha inicial',
+        'to' => 'fecha final',
     ],
 
 ];

@@ -16,22 +16,39 @@ class UserSeeder extends Seeder
     {
         $roles = Role::pluck('id', 'name');
 
+        // Un usuario por rol (dos cajeros), todos con la contraseña "password"
         $users = [
             [
                 'role'    => 'Administrador',
-                'name'    => 'Juan Perez',
+                'name'    => 'Administrador',
                 'dni'     => '12345678',
                 'phone'   => '987654321',
                 'tuition' => null,
-                'email'   => 'admin@farmacia.com',
+                'email'   => 'admin@sanjuan.com',
             ],
             [
                 'role'    => 'Químico farmacéutico',
-                'name'    => 'Maria Lopez',
-                'dni'     => '87654321',
+                'name'    => 'Rosa Quispe Huamán',
+                'dni'     => '45678912',
                 'phone'   => '912345678',
-                'tuition' => 'CQFP-12345',
-                'email'   => 'farmaceutico@farmacia.com',
+                'tuition' => 'CQFP-04521',
+                'email'   => 'rquispe@sanjuan.com',
+            ],
+            [
+                'role'    => 'Cajero',
+                'name'    => 'Carlos Mendoza Ríos',
+                'dni'     => '70123456',
+                'phone'   => '956123478',
+                'tuition' => null,
+                'email'   => 'cmendoza@sanjuan.com',
+            ],
+            [
+                'role'    => 'Cajero',
+                'name'    => 'Lucía Torres Salazar',
+                'dni'     => '72345618',
+                'phone'   => '945612378',
+                'tuition' => null,
+                'email'   => 'ltorres@sanjuan.com',
             ],
         ];
 
